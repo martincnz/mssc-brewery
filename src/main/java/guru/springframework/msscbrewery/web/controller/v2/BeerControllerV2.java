@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-04-23.
- */
 @RequestMapping("/api/v2/beer")
 @RestController
 public class BeerControllerV2 {
@@ -28,7 +25,7 @@ public class BeerControllerV2 {
     }
 
     @PostMapping // POST - create new beer
-    public ResponseEntity handlePost(BeerDtoV2 beerDto){
+    public ResponseEntity<BeerDtoV2> handlePost(BeerDtoV2 beerDto){
 
         BeerDtoV2 savedDto = beerServiceV2.saveNewBeer(beerDto);
 
@@ -36,15 +33,15 @@ public class BeerControllerV2 {
         //todo add hostname to url
         headers.add("Location", "/api/v1/beer/" + savedDto.getId().toString());
 
-        return new ResponseEntity(headers, HttpStatus.CREATED);
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
     @PutMapping({"/{beerId}"})
-    public ResponseEntity handleUpdate(@PathVariable("beerId") UUID beerId, BeerDtoV2 beerDto){
+    public ResponseEntity<BeerDtoV2> handleUpdate(@PathVariable("beerId") UUID beerId, BeerDtoV2 beerDto){
 
         beerServiceV2.updateBeer(beerId, beerDto);
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping({"/{beerId}"})

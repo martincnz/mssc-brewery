@@ -5,17 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Null;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-04-21.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class CustomerDto {
 
+    @Null
     private UUID id;
+
+    @Min(3)
+    @Max(100)
     private String name;
 }
